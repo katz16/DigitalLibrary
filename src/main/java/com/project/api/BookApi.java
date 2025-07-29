@@ -1,5 +1,7 @@
 package com.project.api;
 
+import com.project.dto.BookDto;
+import com.project.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,12 @@ public class BookApi {
 	
 	@PostMapping("/authors")
 	public Author addNewAuthor(@RequestBody @Valid Author author) {
+
 		return bookService.addAuthor(author);
+	}
+	@PostMapping("/addbook")
+	public Book addNewBook(@RequestBody @Valid BookDto book) {
+		return bookService.addBook(book);
 	}
 
 }
