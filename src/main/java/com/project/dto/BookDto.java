@@ -24,7 +24,5 @@ public class BookDto {
     private int stock;
     @Enumerated(EnumType.STRING)
     private Genre genre;
-    @ManyToOne
-    @JoinColumn(name="auth_id")
     private int authorId;
 }
