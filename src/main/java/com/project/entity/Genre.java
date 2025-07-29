@@ -1,0 +1,6 @@
+package com.project.entity;
+
+public enum Genre {
+    FANTACY,INSPIRATION,SCIENCE,COMEDY,DRAMA,COMPUTERS,HORROR,
+    THRILLER,BIOGRAPHY
+}
