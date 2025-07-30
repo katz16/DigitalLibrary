@@ -9,6 +9,9 @@ import com.project.repository.BookRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.project.entity.Author;
@@ -55,7 +58,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> searchByGenre2(Genre genre) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -68,7 +71,8 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Page<Book> allBooksWithPagination(int pageNo, int size) {
 		// TODO Auto-generated method stub
-		return null;
+		Pageable pageable= PageRequest.of(pageNo,size, Sort.by("bookName"));
+		return bookrepo.findAll(pageable);
 	}
 
 	@Override
@@ -80,7 +84,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> searchByGenre(Genre genre) {
 		// TODO Auto-generated method stub
-		return null;
+		return bookrepo.findByGenre(genre);
 	}
 
 	@Override

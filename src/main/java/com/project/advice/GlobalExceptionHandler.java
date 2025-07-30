@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ApplicationException.class)
     public String handleApplicationException(ApplicationException ex) {
+        System.out.println(ex.getMessage());
         return ex.getMessage();
     }
 }

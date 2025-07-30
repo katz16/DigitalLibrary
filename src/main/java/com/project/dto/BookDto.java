@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookDto {
     @NotNull(message="Book id cannot be null")
-    @NotBlank(message="Book is cannot be blank")
     private int bookId;
     @NotNull(message="Book name cannot be null")
     @NotBlank(message="Book name cannot be blank")

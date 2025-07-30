@@ -3,7 +3,9 @@ package com.project.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -13,7 +15,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Transaction {
     @Id
+    @GeneratedValue
     private int tid;
+    @CreationTimestamp
     private LocalDate borrowedDate;
     private LocalDate returnedDate;
     @ManyToOne

@@ -1,5 +1,8 @@
 package com.project.api;
 
+import com.project.dto.BorrowBookDto;
+import com.project.entity.Book;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,5 +21,8 @@ public class UserApi {
 	public User addNewUser(@RequestBody User u) {
 		return userService.addNewUser(u);
 	}
-	
+	@PostMapping("/borrow")
+	public Book borrowBook(@RequestBody @Valid BorrowBookDto borrowBookDto){
+		return userService.borrowBook(borrowBookDto);
+	}
 }
