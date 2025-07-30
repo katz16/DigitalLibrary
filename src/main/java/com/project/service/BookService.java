@@ -21,6 +21,7 @@ public interface BookService {
     void removeBook(int bookId);
     List<Book> searchByBookName(String bookName);
     int updateCost(int bookId, float cost);
+    Book searchBookByID(int bookId);
 
 
 }

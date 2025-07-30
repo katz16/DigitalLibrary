@@ -1,9 +1,12 @@
 package com.project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.project.dto.BookDto;
+import com.project.exception.ApplicationException;
 import com.project.repository.BookRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -27,17 +30,27 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book addBook(BookDto bookDto) {
 		int authorId=bookDto.getAuthorId();
-		Author author= authorrepo.findById(authorId).get();
-		Book book = new Book();
-		book.setBookId(bookDto.getBookId());
-		book.setBookName(bookDto.getBookName());
-		book.setPublishedDate(bookDto.getPublishedDate());
-		book.setCost(bookDto.getCost());
-		book.setStock(bookDto.getStock());
-		book.setGenre(bookDto.getGenre());
-		book.setAuthorId(author);
+		Optional<Author> authorOptional = authorrepo.findById(authorId);
+		if(authorOptional.isPresent()){
+			Author author=	authorOptional.get();
+			Book book = new Book();
+			//Both BookDto and Book have same getters and setters. So we can use the BeanUtils.copyProperties
+			// method to copy properties from bookDto to book.
+			/*book.setBookId(bookDto.getBookId());
+			book.setBookName(bookDto.getBookName());
+			book.setPublishedDate(bookDto.getPublishedDate());
+			book.setCost(bookDto.getCost());
+			book.setStock(bookDto.getStock());
+			book.setGenre(bookDto.getGenre());*/
+			BeanUtils.copyProperties(bookDto,book);
+			book.setAuthorId(author);
 
-		return bookrepo.save(book);
+			return bookrepo.save(book);
+		}
+		 else{
+			 throw new ApplicationException("Author not found with id: " + authorId);
+		}
+
 	}
 
 	@Override
@@ -49,7 +62,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> allBooks() {
 		// TODO Auto-generated method stub
-		return null;
+		return bookrepo.findAll();
 	}
 
 	@Override
@@ -91,6 +104,11 @@ public class BookServiceImpl implements BookService {
 	public int updateCost(int bookId, float cost) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Book searchBookByID(int bookId) {
+		 return bookrepo.findById(bookId).orElseThrow(() -> new ApplicationException("Book not found with id: " + bookId));
 	}
 
 }
