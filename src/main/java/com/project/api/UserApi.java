@@ -4,10 +4,7 @@ import com.project.dto.BorrowBookDto;
 import com.project.entity.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.project.entity.User;
 import com.project.service.UserService;
@@ -24,5 +21,9 @@ public class UserApi {
 	@PostMapping("/borrow")
 	public Book borrowBook(@RequestBody @Valid BorrowBookDto borrowBookDto){
 		return userService.borrowBook(borrowBookDto);
+	}
+	@PutMapping("/returnbook/{tid}")
+	public Book returnBook(@PathVariable("tid") int tid) {
+		return userService.returnBook(tid);
 	}
 }
